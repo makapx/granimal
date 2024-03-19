@@ -1,0 +1,1 @@
+export type WithPagination<T extends {}> = T & { limit?: number, offset?: number }
