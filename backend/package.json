@@ -13,7 +13,9 @@
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",

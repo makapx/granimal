@@ -2,10 +2,7 @@ import fastify, { FastifyInstance, FastifyRequest } from "fastify";
 
 import { WithPagination } from "../misc/utils";
 import { AnimeFragment } from "../types/anime";
-import { getAnimeById, searchAnime } from "../providers/anime.providers";
-import { ReplyDefault } from "fastify/types/utils";
-import { AxiosError } from "axios";
-
+import { getAnimeById, searchAnime } from "../providers/anime.provider";
 
 export type RankingType =
     'all'

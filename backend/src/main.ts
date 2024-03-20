@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "./dotenv_";
 import fastify from "fastify";
 import anime from "./routes/anime.routes";
 import { env } from "process";

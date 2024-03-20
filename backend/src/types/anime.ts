@@ -13,7 +13,7 @@ export type AnimeFragment = {
 //
 //   const anime = Convert.toAnime(json);
 
-export type Anime = AnimeFragment & {
+export type Anime = AnimeFragment & Partial<{
     id:                       number;
     title:                    string;
     main_picture:             Picture;
@@ -44,7 +44,7 @@ export type Anime = AnimeFragment & {
     recommendations:          Recommendation[];
     studios:                  Genre[];
     statistics:               Statistics;
-}
+}>;
 
 export type AlternativeTitles = {
     synonyms: string[];
