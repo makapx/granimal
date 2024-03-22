@@ -1,22 +1,34 @@
-const Card = () => {
+const Card = ({
+  title,
+  description,
+  image,
+  genres,
+}: {
+  title: string;
+  description: string;
+  image: string;
+  genres: string[];
+}) => {
   return (
     <>
-      <div className="relative bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-        <img
-          className="w-full h-auto rounded-xl"
-          src="../assets/img/900x500/img1.jpg"
-          alt="Image Description"
-        />
-        <div className="absolute top-0 start-0 end-0">
-          <div className="p-4 md:p-5">
-            <h3 className="text-lg font-bold text-gray-800">Card title</h3>
-            <p className="mt-1 text-gray-800">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <p className="mt-5 text-xs text-gray-500">
-              Last updated 5 mins ago
-            </p>
+      <div className="card w-96 bg-base-100 shadow-xl h-auto">
+        <figure>
+          <img
+            className="rounded-t-lg w-full h-48 object-cover object-center blur-sm"
+            src={image}
+            alt="Shoes"
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">{title}</h2>
+          <p>{description}</p>
+          <div className="card-actions justify-end">
+            {genres &&
+              genres.slice(0, 3).map((genre) => (
+                <div key={genre} className="badge badge-secondary text-base-100">
+                  {genre}
+                </div>
+              ))}
           </div>
         </div>
       </div>
