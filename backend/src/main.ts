@@ -2,15 +2,15 @@ import "./dotenv_";
 import fastify from "fastify";
 import anime from "./routes/anime.routes";
 import { env } from "process";
-import { AxiosError } from "axios";
+import { WebError } from "./misc/error";
 const app = fastify({
     logger: env['LOGGER'] === '1' || env['LOGGER']?.toLowerCase() === 'true'
 });
 
 app.setErrorHandler(function(error, request, reply) {
-    if ( error instanceof AxiosError ) {
+    if ( error instanceof WebError ) {
         console.log(error)
-        reply.code(error.response?.status ?? 500).send(error.response?.data);
+        reply.code(error.code ?? 500).send(error.data);
     }
     else {
         reply.send(error);

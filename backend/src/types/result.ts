@@ -1,4 +1,4 @@
 export type ArrayResult<T> = {
-    data: Array<T>;
+    result: Array<T>;
     hasNext: boolean;
 }
