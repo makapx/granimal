@@ -1,10 +1,7 @@
-import { chain, flatMap, map } from "lodash";
-import day from "dayjs";
-import { convertDate } from "./utils";
-import { ArrayResult } from "../../types/result";
-import { Anime, AnimeFragment, AnimeFragmentParams } from "../../types/anime";
+import { flatMap, map } from "lodash";
+import { Anime } from "../../types/anime";
 import { WebError } from "../../misc/error";
-import { AnilistFragment, mapFragment, mapFragments } from "./fragment.provider";
+import { AnilistFragment, mapFragment } from "./fragment.provider";
 
 type AnimeMedia = {
   id: number;
@@ -38,7 +35,7 @@ type AnimeMedia = {
   };
   averageScore?: number;
 
- 
+
   bannerImage: string;
   description: string;
   seasonYear: number;
@@ -59,12 +56,6 @@ type AnimeMedia = {
         id: number;
         name: string;
       };
-    }>;
-  };
-  recommendations: {
-    nodes: Array<{
-      id: number;
-      mediaRecommendation: AnilistFragment & { type: string };
     }>;
   };
 };
@@ -170,43 +161,6 @@ export async function getAnime(id: number): Promise<Anime> {
               }
             }
           }
-          recommendations {
-            nodes {
-              id
-              mediaRecommendation {
-                 id
-                  title {
-                    english
-                    romaji
-                  }
-                  type
-                  genres
-                  status
-                  season
-                  seasonYear
-                  coverImage {
-                    large
-                  }
-                  format
-                  startDate {
-                    year
-                    month
-                    day
-                  }
-                  endDate {
-                    year
-                    month
-                    day
-                  }
-                  episodes
-                  nextAiringEpisode {
-                    id
-                    episode
-                  }
-                  averageScore
-              }
-            }
-          }
         }
       }
     `,
@@ -220,7 +174,7 @@ export async function getAnime(id: number): Promise<Anime> {
 
   const response = await fetch("https://graphql.anilist.co/", requestOptions);
   const result = await response.json() as Root;
-  if ( response.ok ) { 
+  if (response.ok) {
     const media = result.data.Media;
     return ({
       ...mapFragment(media),
@@ -232,19 +186,15 @@ export async function getAnime(id: number): Promise<Anime> {
       synonyms: media.synonyms,
       countryOfOrigin: media.countryOfOrigin,
       relations: flatMap(
-        media.relations.edges, 
-        ({node}) => node.type === 'ANIME' ? [mapFragment(node)] : []
-      ),
-      recommendations: flatMap(
-        media.recommendations.nodes,
-        ({mediaRecommendation}) => mediaRecommendation.type === 'ANIME' ? [mapFragment(mediaRecommendation)] : []
+        media.relations.edges,
+        ({ node }) => node.type === 'ANIME' ? [mapFragment(node)] : []
       ),
       studios: map(media.studios.edges, next => next.node.name),
 
-    });
+    }) as Anime;
   }
   else {
-    throw new WebError(response.status,'anime::getAnime', result)
+    throw new WebError(response.status, 'anime::getAnime', result)
   }
 
 }

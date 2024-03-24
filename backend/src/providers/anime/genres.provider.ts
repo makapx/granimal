@@ -1,9 +1,5 @@
-import { map } from "lodash";
-import day from "dayjs";
-import { convertDate } from "./utils";
-import { ArrayResult } from "../../types/result";
-import { AnimeFragment, AnimeFragmentParams } from "../../types/anime";
 import { WebError } from "../../misc/error";
+import { AnimeGenresResult } from "../../types/anime";
 
 
 type Response = {
@@ -33,7 +29,7 @@ export async function getGenres() {
   const response = await fetch("https://graphql.anilist.co/", requestOptions);
   const result = await response.json() as Response;
   if ( response.ok ) { 
-    return result.data.GenreCollection;
+    return result.data.GenreCollection as AnimeGenresResult;
   }
   else {
     throw new WebError(response.status,'anime::getGenres', result)

@@ -1,12 +1,42 @@
-import { Anime, AnimeFragment, AnimeSearchParams } from "./types/anime.types";
-import { ArrayResult, WithPagination } from "./types/misc.types";
+import { Anime, AnimeGenresResult, AnimeRecommendationParams, AnimeRecommendationResult, AnimeSearchParams, AnimeSearchResult } from "./types";
 
-export function search(params: WithPagination<AnimeSearchParams>) {
-    const urlparmas = new URLSearchParams(params as Record<string,string>);
-    return fetch(`/api/anime?` + urlparmas.toString())
-        .then( res => res.json() as Promise<ArrayResult<AnimeFragment>>)
+/**
+ * @description Search anime based on filters
+ * @param params 
+ * @returns 
+ */
+export function searchAnime(params: AnimeSearchParams): Promise<AnimeSearchResult> {
+    const querystring = new URLSearchParams(params as Record<string,string>);
+    return fetch(`/api/anime?` + querystring.toString())
+        .then( res => res.json() as Promise<AnimeSearchResult>)
 }
-export function get(id: number) {
+
+/**
+ * @description Get anime by id
+ * @param id anime id 
+ * @returns 
+ */
+export function getAnime(id: number): Promise<Anime> {
     return fetch(`/api/anime/${id}`)
         .then( res => res.json() as Promise<Anime>)
+}
+
+/**
+ * @description Get anime recommendations
+ * @param params 
+ * @returns 
+ */
+export function getAnimeRecommendations({id, page = 1, size = 25}: AnimeRecommendationParams): Promise<AnimeRecommendationResult> {
+    const querystring = new URLSearchParams({page: page.toString(), size: size.toFixed()});
+    return fetch(`/api/anime/${id}/recommendations?` + querystring)
+        .then( res => res.json() as Promise<AnimeRecommendationResult>)
+}
+
+/**
+ * @description Get anime genres
+ * @returns an array of strings representing genres
+ */
+export function getGenres(): Promise<AnimeGenresResult> {
+    return fetch(`/api/anime-genres`)
+        .then( res => res.json() as Promise<AnimeGenresResult>)
 }

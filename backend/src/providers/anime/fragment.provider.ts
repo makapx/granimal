@@ -2,8 +2,8 @@ import { map } from "lodash";
 import day from "dayjs";
 import { convertDate } from "./utils";
 import { ArrayResult } from "../../types/result";
-import { AnimeFragment, AnimeFragmentParams } from "../../types/anime";
 import { WebError } from "../../misc/error";
+import { AnimeFragment, AnimeSearchParams, AnimeSearchResult } from "../../types/anime";
 
 
 
@@ -54,7 +54,7 @@ type Response = {
 
 
 
-export async function searchAnime(params: AnimeFragmentParams) {
+export async function searchAnime(params: AnimeSearchParams) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -120,7 +120,7 @@ export async function searchAnime(params: AnimeFragmentParams) {
   const response = await fetch("https://graphql.anilist.co/", requestOptions);
   const result = await response.json() as Response;
   if ( response.ok ) {
-    const arrayResult: ArrayResult<AnimeFragment> = {
+    const arrayResult: AnimeSearchResult = {
       hasNext: result.data.anime.pageInfo.hasNextPage,
       result: mapFragments(result.data.anime.results)
     };
@@ -132,21 +132,23 @@ export async function searchAnime(params: AnimeFragmentParams) {
   }
 
 }
-export const mapFragment = (anime: AnilistFragment) => ({
+export const mapFragment = (anime: AnilistFragment) => {
+  console.log(anime)
+  return ({
   id: anime.id,
-  title: anime.title.english ?? anime.title.romaji,
+  title: anime.title?.english ?? anime.title?.romaji ?? 'Unnamed',
   season: anime.season,
   seasonYear: anime.seasonYear,
   genres: anime.genres,
-  coverImage: anime.coverImage.large,
+  coverImage: anime.coverImage?.large,
   status: anime.status,
   format: anime.format,
-  startDate: convertDate(anime.startDate),
-  endDate: convertDate(anime.endDate),
+  startDate: convertDate(anime.startDate ),
+  endDate: convertDate(anime.endDate ),
   episodes: anime.episodes ?? (anime.nextAiringEpisode?.episode ?? 1) - 1,
   nextEpisode: anime.nextAiringEpisode?.episode,
   score: anime.averageScore
-});
+})};
 export function mapFragments(fragments: AnilistFragment[]): AnimeFragment[] {
   return map(fragments, mapFragment);
 }
