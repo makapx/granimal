@@ -1,7 +1,6 @@
 import { WebError } from "../../misc/error";
 import { AnimeGenresResult } from "../../types/anime";
 
-
 type Response = {
   data: {
     GenreCollection: Array<string>
@@ -34,5 +33,4 @@ export async function getGenres() {
   else {
     throw new WebError(response.status,'anime::getGenres', result)
   }
-
 }

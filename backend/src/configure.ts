@@ -6,7 +6,7 @@ import fastify, { FastifyInstance } from "fastify";
 import { WebError } from "./misc/error";
 dotenv.config();
 
-export default async function configure(cb: (app: FastifyInstance) => Promise<void>) {
+export default async function configure(awaitableCallback: (app: FastifyInstance) => Promise<void>) {
   const port = Number(env['PORT'] ?? 8080);
   const app = fastify({
     logger: stringToBoolean(env['LOGGER'] ?? true),
@@ -21,7 +21,7 @@ export default async function configure(cb: (app: FastifyInstance) => Promise<vo
     }
   })
 
-  await cb(app);
+  await awaitableCallback(app);
   
   await app.listen({
     port: port

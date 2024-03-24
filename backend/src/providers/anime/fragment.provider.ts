@@ -5,8 +5,6 @@ import { ArrayResult } from "../../types/result";
 import { WebError } from "../../misc/error";
 import { AnimeFragment, AnimeSearchParams, AnimeSearchResult } from "../../types/anime";
 
-
-
 export type AnilistFragment = {
   id: number;
   title: {
@@ -49,10 +47,6 @@ type Response = {
     }
   }
 }
-
-
-
-
 
 export async function searchAnime(params: AnimeSearchParams) {
   const myHeaders = new Headers();

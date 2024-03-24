@@ -66,11 +66,6 @@ type Root = {
   }
 }
 
-
-
-
-
-
 export async function getAnime(id: number): Promise<Anime> {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");

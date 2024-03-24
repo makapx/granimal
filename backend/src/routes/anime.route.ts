@@ -2,6 +2,7 @@ import  { FastifyInstance, FastifyRequest } from "fastify";
 import { getAnime, getRecommendations, searchAnime } from "../providers/anime";
 import { WithPagination } from "../types/result";
 import { AnimeSearchParams } from "../types/anime";
+
 // fastify requires routes to be functions which accept a set of parameters
 // the first being the instance, the last a close chain function 
 export default function (app: FastifyInstance, opts: unknown, done: Function) {
