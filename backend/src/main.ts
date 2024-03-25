@@ -1,28 +1,14 @@
-import dotenv from "dotenv";
-dotenv.config();
-import fastify from "fastify";
-import anime from "./routes/anime.routes";
-import { env } from "process";
-import { AxiosError } from "axios";
-const app = fastify({
-    logger: env['LOGGER'] === '1' || env['LOGGER']?.toLowerCase() === 'true'
+import configure from "./configure";
+import animeRoute from "./routes/anime.route";
+import animeGenresRoute from "./routes/anime-genres.route";
+
+
+
+configure( async app => {
+  // mounts animeRoute in /api/anime
+  app.register(animeRoute, { prefix: '/api/anime' });
+
+  // mounts animeGenresRoute in /api/anime-genres
+  app.register(animeGenresRoute, { prefix: '/api/anime-genres' })
+
 });
-
-app.setErrorHandler(function(error, request, reply) {
-    if ( error instanceof AxiosError ) {
-        console.log(error)
-        reply.code(error.response?.status ?? 500).send(error.response?.data);
-    }
-    else {
-        reply.send(error);
-    }
-})
-
-
-app.register(anime, { prefix: '/api/anime'});
-
-app.listen({
-    port: Number(env['PORT']) || 8080
-})
-    .then( _ => console.log(`Listening on port ${env['PORT'] || 8080}`) )
-    .catch(console.error)
