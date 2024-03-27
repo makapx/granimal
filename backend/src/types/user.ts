@@ -1,8 +1,8 @@
 export type User = {
-    uid: string;
-    name: string;
-    email: string;
+    id?: number;
+    username: string;
+    password?: string;
     picture?: string;
 }
 
-export type UserWithPassword = User & { password_hash: string };
+export type UserWithPassword = User & { password: string };

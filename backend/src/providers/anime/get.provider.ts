@@ -189,7 +189,7 @@ export async function getAnime(id: number): Promise<Anime> {
     }) as Anime;
   }
   else {
-    throw new WebError(response.status, 'anime::getAnime', result)
+    throw new WebError(response.status, 'anime::getAnime', result);
   }
 
 }

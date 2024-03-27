@@ -8,6 +8,7 @@ dotenv.config();
 
 export default async function configure(awaitableCallback: (app: FastifyInstance) => Promise<void>) {
   const port = Number(env['PORT'] ?? 8080);
+  
   const app = fastify({
     logger: stringToBoolean(env['LOGGER'] ?? true),
   });

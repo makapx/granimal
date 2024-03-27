@@ -7,7 +7,6 @@ import { AnimeSearchParams } from "../types/anime";
 // the first being the instance, the last a close chain function 
 export default function (app: FastifyInstance, opts: unknown, done: Function) {
 
-
     // search anime with AnimeSearchParams
     app.get('', async (req: FastifyRequest<{ Querystring: AnimeSearchParams }>) => {
         return searchAnime(req.query);
