@@ -15,7 +15,7 @@ export default async function configure(awaitableCallback: (app: FastifyInstance
 
   app.setErrorHandler(function (error, request, reply) {
     if (error instanceof WebError) {
-      reply.code(error.code ?? 500).send(error.data);
+      reply.code(error.code ?? 500).send(error.data ?? error.scope);
     }
     else {
       reply.send(error);

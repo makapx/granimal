@@ -29,7 +29,7 @@ export type AnimeFragment = {
 }
 
 export type Anime = AnimeFragment & {
-  nextEpisodeAirsAt: number | undefined;
+  nextEpisodeAirsAt: string;
   bannerImage: string;
   description: string;
   duration: number;
