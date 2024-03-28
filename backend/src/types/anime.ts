@@ -10,7 +10,6 @@ export type AnimeSearchParams = WithPagination<{
   sort?: 'ID' | 'ID_DESC' | 'START_DATE' | 'START_DATE_DESC' | 'END_DATE' | 'END_DATE_DESC' | 'SCORE' | 'SCORE_DESC' | 'POPULARITY' | 'POPULARITY_DESC' | 'TRENDING' | 'TRENDING_DESC' | 'EPISODES' | 'EPISODES_DESC' | 'DURATION' | 'DURATION_DESC' | 'STATUS' | 'STATUS_DESC' | 'UPDATED_AT' | 'UPDATED_AT_DESC'
 }>
 
-export type AnimeRecommendationParams = WithPagination<{ id: number }>;
 
 export type AnimeFragment = {
   id: number;
@@ -29,19 +28,18 @@ export type AnimeFragment = {
   score?: number;
 }
 
-export type AnimeSearchResult = ArrayResult<AnimeFragment>;
-export type AnimeRecommendationResult = ArrayResult<AnimeFragment>;
-export type AnimeGenresResult = Array<string>;
-
 export type Anime = AnimeFragment & {
-  nextEpisodeAirsAt: number | undefined;
+  nextEpisodeAirsAt: string;
   bannerImage: string;
   description: string;
-  seasonYear: number;
   duration: number;
   synonyms: string[];
   countryOfOrigin: string;
   relations: AnimeFragment[];
-
   studios: string[];
 };
+
+export type AnimeRecommendationParams = WithPagination<{ id: number }>;
+export type AnimeSearchResult = ArrayResult<AnimeFragment>;
+export type AnimeRecommendationResult = ArrayResult<AnimeFragment>;
+export type AnimeGenresResult = Array<string>;

@@ -8,13 +8,14 @@ dotenv.config();
 
 export default async function configure(awaitableCallback: (app: FastifyInstance) => Promise<void>) {
   const port = Number(env['PORT'] ?? 8080);
+  
   const app = fastify({
     logger: stringToBoolean(env['LOGGER'] ?? true),
   });
 
   app.setErrorHandler(function (error, request, reply) {
     if (error instanceof WebError) {
-      reply.code(error.code ?? 500).send(error.data);
+      reply.code(error.code ?? 500).send(error.data ?? error.scope);
     }
     else {
       reply.send(error);
