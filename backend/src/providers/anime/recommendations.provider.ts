@@ -14,7 +14,11 @@ type Response = {
     }
   }
 }
-
+/**
+ * Get recommendations for a base anime, uses pagination. 
+ * @param params 
+ * @returns 
+ */
 export async function getRecommendations(params: AnimeRecommendationParams) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");

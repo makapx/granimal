@@ -47,7 +47,11 @@ type Response = {
     }
   }
 }
-
+/**
+ * Search anime using provided param filters, uses pagination.
+ * @param params 
+ * @returns 
+ */
 export async function searchAnime(params: AnimeSearchParams) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
