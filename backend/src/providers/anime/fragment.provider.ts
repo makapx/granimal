@@ -104,13 +104,12 @@ export async function searchAnime(params: AnimeSearchParams) {
       page: params.page,
       perPage: params.size
     }
-  })
+  });
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: graphql
   };
-
   const response = await fetch("https://graphql.anilist.co/", requestOptions);
   const result = await response.json() as Response;
   if ( response.ok ) {
@@ -127,21 +126,20 @@ export async function searchAnime(params: AnimeSearchParams) {
 
 }
 export const mapFragment = (anime: AnilistFragment) => {
-  console.log(anime)
   return ({
-  id: anime.id,
-  title: anime.title?.english ?? anime.title?.romaji ?? 'Unnamed',
-  season: anime.season,
-  seasonYear: anime.seasonYear,
-  genres: anime.genres,
-  coverImage: anime.coverImage?.large,
-  status: anime.status,
-  format: anime.format,
-  startDate: convertDate(anime.startDate ),
-  endDate: convertDate(anime.endDate ),
-  episodes: anime.episodes ?? (anime.nextAiringEpisode?.episode ?? 1) - 1,
-  nextEpisode: anime.nextAiringEpisode?.episode,
-  score: anime.averageScore
+    id: anime.id,
+    title: anime.title?.english ?? anime.title?.romaji ?? 'Unnamed',
+    season: anime.season,
+    seasonYear: anime.seasonYear,
+    genres: anime.genres,
+    coverImage: anime.coverImage?.large,
+    status: anime.status,
+    format: anime.format,
+    startDate: convertDate(anime.startDate ),
+    endDate: convertDate(anime.endDate ),
+    episodes: anime.episodes ?? (anime.nextAiringEpisode?.episode ?? 1) - 1,
+    nextEpisode: anime.nextAiringEpisode?.episode,
+    score: anime.averageScore
 })};
 export function mapFragments(fragments: AnilistFragment[]): AnimeFragment[] {
   return map(fragments, mapFragment);

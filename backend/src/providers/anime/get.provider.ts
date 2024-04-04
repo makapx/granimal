@@ -2,6 +2,7 @@ import { flatMap, map } from "lodash";
 import { Anime } from "../../types/anime";
 import { WebError } from "../../misc/error";
 import { AnilistFragment, mapFragment } from "./fragment.provider";
+import dayjs from "dayjs";
 
 type AnimeMedia = {
   id: number;
@@ -173,7 +174,7 @@ export async function getAnime(id: number): Promise<Anime> {
     const media = result.data.Media;
     return ({
       ...mapFragment(media),
-      nextEpisodeAirsAt: media.nextAiringEpisode?.airingAt,
+      nextEpisodeAirsAt: dayjs((media.nextAiringEpisode?.airingAt ?? 0) * 1000).toISOString(),
       bannerImage: media.bannerImage,
       description: media.description,
       seasonYear: media.seasonYear,
@@ -189,7 +190,7 @@ export async function getAnime(id: number): Promise<Anime> {
     }) as Anime;
   }
   else {
-    throw new WebError(response.status, 'anime::getAnime', result)
+    throw new WebError(response.status, 'anime::getAnime', result);
   }
 
 }
