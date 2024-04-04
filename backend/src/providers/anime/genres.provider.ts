@@ -7,6 +7,10 @@ type Response = {
   }
 }
 
+/**
+ * Get Anilist's genres list
+ * @returns 
+ */
 export async function getGenres() {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
