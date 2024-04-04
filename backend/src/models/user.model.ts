@@ -51,7 +51,7 @@ User.init({
         defaultValue: "default.png"
     }
 }, { sequelize: database })
-    .sync({ alter: true });
+    .sync({ alter: false });
 
 function hashPassword(password: string) {
     return crypto.createHash('md5').update(password).digest('hex');

@@ -1,23 +1,28 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
-import { TrackingListDeleteAnimeParams, TrackingListSearchParams, deleteAnimeOfUser, getTrackingListOfUser, trackAnimeById } from "../models/lists.model";
-import { authenticationPreHandler } from "../models/users.model";
+import { deleteAnimeOfUser, getTrackingListOfUser, trackAnime } from "../models/lists.model";
+import { authenticate } from "../providers/user.providers";
+import { TrackingList } from "../types/trackinglist";
+import { WebError } from "../misc/error";
 
-/**
- * /api/list
- * GET /api/list/:userId // la nostra lista 
- */
 export default function ( app: FastifyInstance, opts: unknown, done: Function ) {
 
     app.get('/:userId', (req: FastifyRequest<{ Params: { userId: number } }>) => {
         return getTrackingListOfUser(req.params.userId);
     });
 
-    app.put('/:userId/:animeId', { preHandler: authenticationPreHandler as any}, (req: FastifyRequest<{Body: TrackingListSearchParams }>) => {
-        return trackAnimeById(req.body); // POST body {username: string, animeId: number}
+    app.put('/:userId/:animeId', { preHandler: authenticate }, (req: FastifyRequest<{Body: Partial<TrackingList>, Params: { userId: number, animeId: number } }>) => {
+        return trackAnime(req.params.userId, req.params.animeId, req.body);
     });
 
-    app.delete('/:userId/:animeId', { preHandler: authenticationPreHandler as any}, (req: FastifyRequest<{Body: TrackingListDeleteAnimeParams }>) => {
-        return deleteAnimeOfUser(req.body); // DELETE body {username: string, animeId: number}
+    app.delete('/:userId/:animeId', { preHandler: authenticate }, async (req: FastifyRequest<{ Params: { userId: number, animeId: number } }>, reply) => {
+        const deleted = await deleteAnimeOfUser(req.params.userId, req.params.animeId);
+        if ( deleted === 0)
+            reply.status(304);
+    });
+
+    app.patch('/:userId/:animeId', { preHandler: authenticate }, (req: FastifyRequest<{Body: Partial<TrackingList>, Params: { userId: number, animeId: number } }>, reply) => {
+        return trackAnime(req.params.userId, req.params.animeId, req.body)
+            .catch(() => {throw new WebError(400, 'user', 'User not found')});
     });
 
     done();

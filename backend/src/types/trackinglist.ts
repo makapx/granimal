@@ -3,5 +3,5 @@ export type TrackingList = {
     animeId: number;
     status?: string;
     progress?: number;
+    score?: number
 }
-
