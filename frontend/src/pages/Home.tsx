@@ -30,7 +30,7 @@ const Home = () => {
       <Hero />
       <Container children={
         featured.map((item) => (
-          <Card key={item.id} title={item.title} description={item.description} image={item.image} genres={item.genres} />
+          <Card key={item.id} title={item.title} image={item.image} genres={item.genres} />
         ))
       } />
     </>

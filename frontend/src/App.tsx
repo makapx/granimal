@@ -1,11 +1,10 @@
-
-import LoginSignup from './components/LoginSignup';
-import './index.css'
+import './index.css';
+import Home from './pages/Home';
 
 const App = () => {
   return (
     <>
- <LoginSignup></LoginSignup>
+<Home></Home>
     </>
   )
 }
