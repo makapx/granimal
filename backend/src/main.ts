@@ -12,8 +12,11 @@ configure( async app => {
   // mounts animeGenresRoute in /api/anime-genres
   app.register(animeGenresRoute, { prefix: '/api/anime-genres' });
 
+  // mounts user and auth with same router module
   app.register(userRoute, { prefix: '/api/auth' });
+  app.register(userRoute, { prefix: '/api/user' });
 
   app.register(listRoute, { prefix: "/api/list"});
+
   
 });
