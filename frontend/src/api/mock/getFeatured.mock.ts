@@ -1,65 +1,83 @@
 const getFeaturedMock = () => {
   return [
     {
-      id: 1,
-      title: "Naruto",
-      description:
-        "Naruto Uzumaki is a young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village.",
-      image: "https://cdn.myanimelist.net/images/anime/13/17405.jpg",
-      rating: 4.5,
-      type: "TV",
-      episodes: 220,
-      status: "Finished Airing",
-      startDate: "Oct 3, 2002",
-      endDate: "Feb 8, 2007",
-      members: 2222222,
-      genres: [
+      "id": 21,
+      "title": "ONE PIECE",
+      "season": "FALL",
+      "seasonYear": 1999,
+      "genres": [
         "Action",
         "Adventure",
         "Comedy",
-        "Super Power",
-        "Martial Arts",
-        "Shounen",
-      ],
-    },
-    {
-      id: 2,
-      title: "One Piece",
-      description:
-        "Gol D. Roger was known as the Pirate King, the strongest and most infamous being to have sailed the Grand Line.",
-      image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
-      rating: 4.6,
-      type: "TV",
-      episodes: 1300,
-      status: "Currently Airing",
-      startDate: "Oct 20, 1999",
-      endDate: "Unknown",
-      members: 2222222,
-      genres: [
-        "Action",
-        "Adventure",
-        "Comedy",
-        "Super Power",
         "Drama",
-        "Fantasy",
-        "Shounen",
+        "Fantasy"
       ],
+      "coverImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21-YCDoj1EkAxFn.jpg",
+      "status": "RELEASING",
+      "format": "TV",
+      "startDate": "1999-11-20",
+      "episodes": 1099,
+      "nextEpisode": 1100,
+      "score": 88
     },
     {
-      id: 3,
-      title: "Bleach",
-      description:
-        "Ichigo Kurosaki is an ordinary high schooler—until his family is attacked by a Hollow, a corrupt spirit that seeks to devour human souls.",
-      image: "https://cdn.myanimelist.net/images/anime/3/40451.jpg",
-      rating: 4.4,
-      type: "TV",
-      episodes: 366,
-      status: "Finished Airing",
-      startDate: "Oct 5, 2004",
-      endDate: "Mar 27, 2012",
-      members: 2222222,
-      genres: ["Action", "Adventure", "Super Power", "Supernatural", "Shounen"],
+      "id": 1,
+      "title": "Cowboy Bebop",
+      "season": "SPRING",
+      "seasonYear": 1998,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama",
+        "Sci-Fi"
+      ],
+      "coverImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1-CXtrrkMpJ8Zq.png",
+      "status": "FINISHED",
+      "format": "TV",
+      "startDate": "1998-05-06",
+      "endDate": "1999-05-26",
+      "episodes": 26,
+      "score": 86
     },
+    {
+      "id": 249,
+      "title": "InuYasha",
+      "season": "FALL",
+      "seasonYear": 2000,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Comedy",
+        "Fantasy",
+        "Romance"
+      ],
+      "coverImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx249-YN54jZrItGgZ.png",
+      "status": "FINISHED",
+      "format": "TV",
+      "startDate": "2000-11-21",
+      "endDate": "2004-10-16",
+      "episodes": 167,
+      "score": 76
+    },
+    {
+      "id": 6702,
+      "title": "Fairy Tail",
+      "season": "FALL",
+      "seasonYear": 2009,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Comedy",
+        "Fantasy"
+      ],
+      "coverImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b6702-1FZrcyOB4NfH.png",
+      "status": "FINISHED",
+      "format": "TV",
+      "startDate": "2009-11-13",
+      "endDate": "2013-04-30",
+      "episodes": 175,
+      "score": 71
+    }
   ];
 };
 
