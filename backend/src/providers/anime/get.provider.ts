@@ -67,6 +67,11 @@ type Root = {
   }
 }
 
+/**
+ * Get anime by Anilist's id
+ * @param id 
+ * @returns 
+ */
 export async function getAnime(id: number): Promise<Anime> {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");

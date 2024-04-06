@@ -2,8 +2,8 @@ import crypto from 'crypto';
 import fs from "fs/promises";
 import jwt, { Jwt, JwtPayload } from "jsonwebtoken";
 type KeyPair = {
-    publicKey: string;
-    privateKey: string;
+    public: string;
+    private: string;
 };
 
 function generateKeys(): Promise<KeyPair> {
@@ -24,7 +24,7 @@ function generateKeys(): Promise<KeyPair> {
                 return Err(err);
             }
             else {
-                Ok({publicKey, privateKey});
+                Ok({public: publicKey, private: privateKey});
             }
         });
         
@@ -33,8 +33,8 @@ function generateKeys(): Promise<KeyPair> {
 
 function storeKeys(keyPair: KeyPair): KeyPair {
     Promise.all([
-        fs.writeFile('data/privateKey.pem', keyPair.privateKey),
-        fs.writeFile('data/publicKey.pem', keyPair.publicKey)    
+        fs.writeFile('data/privateKey.pem', keyPair.private),
+        fs.writeFile('data/publicKey.pem', keyPair.public)    
     ]).catch(console.error);
     return keyPair;
 }
@@ -46,19 +46,19 @@ async function loadKeys(): Promise<KeyPair> {
         fs.readFile('data/privateKey.pem', 'utf-8'),
         fs.readFile('data/publicKey.pem', 'utf-8'),
     ]);
-    return { privateKey, publicKey };
+    return { private: privateKey, public: publicKey };
 }
 
-const keys = loadKeys().catch(
+export const keyPair = () =>  loadKeys().catch(
     err => generateKeys()
             .then(storeKeys)
 );
 
-export async function signToken<T extends Object>(payload: T): Promise<string> {
-    const {privateKey} = await keys;
-    return jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '2h'});
-}
-export async function verifyToken<T extends Object>(token: string): Promise<T & JwtPayload> {
-    const {publicKey} = await keys;
-    return jwt.verify(token, publicKey, { algorithms: ['RS256']}) as T & JwtPayload;
-}
+// export async function signToken<T extends Object>(payload: T): Promise<string> {
+//     const {private: privateKey} = await keyPair;
+//     return jwt.sign(payload, privateKey, { algorithm: 'RS256', expiresIn: '2h'});
+// }
+// export async function verifyToken<T extends Object>(token: string): Promise<T & JwtPayload> {
+//     const {public: publicKey} = await keyPair;
+//     return jwt.verify(token, publicKey, { algorithms: ['RS256']}) as T & JwtPayload;
+// }
