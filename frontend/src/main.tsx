@@ -1,23 +1,38 @@
-import './index.css'
+import "./index.css";
 
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Provider } from 'react-redux'
-import store from './redux/store'
-
-const router = createBrowserRouter([{
-  path: '/',
-  element: <App/>
-}])
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Category from "./pages/Category";
 
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/category/:id",
+    element: <Category />,
+  },
+  {
+    path: "/anime/:id",
+    element: <h1>Anime</h1>,
+  },
+  {
+    path: "/search/:query",
+    element: <h1>Search</h1>,
+  },
+  {
+    path: "*",
+    element: <h1>404</h1>,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
-        <RouterProvider router={router}/>
-    </Provider>,
-  </React.StrictMode>,
+      <RouterProvider router={router} />
+  </React.StrictMode>
 );
