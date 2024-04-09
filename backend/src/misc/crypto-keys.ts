@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 import fs from "fs/promises";
-import jwt, { Jwt, JwtPayload } from "jsonwebtoken";
 type KeyPair = {
     public: string;
     private: string;

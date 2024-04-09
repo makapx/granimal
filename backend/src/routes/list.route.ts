@@ -1,8 +1,8 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
+import { WebError } from "../misc/error";
 import { deleteAnimeOfUser, getTrackingListOfUser, trackAnime } from "../models/lists.model";
 import { authenticate } from "../providers/user.providers";
 import { TrackingList } from "../types/trackinglist";
-import { WebError } from "../misc/error";
 import { UserType } from "../types/user";
 
 export default function ( app: FastifyInstance, opts: unknown, done: Function ) {

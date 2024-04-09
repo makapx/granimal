@@ -2,8 +2,6 @@ import crypto from "crypto";
 import database from "../misc/database";
 import { DataTypes, Model } from "sequelize";
 import { UserType } from "../types/user";
-import { WebError } from "../misc/error";
-import { FastifyRequest } from "fastify";
 import { omit } from "lodash";
 
 

@@ -1,7 +1,6 @@
-import fastify, { FastifyInstance, FastifyRequest } from "fastify";
+import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { UserType } from "../types/user";
-import { WebError } from "../misc/error";
 import { ChangePasswordParams, ChangePictureParams, CreateUserParams, LoginParams, authenticate, changeUserPassword, changeUserPicture, createUser, loginUser } from "../providers/user.providers";
 
 
