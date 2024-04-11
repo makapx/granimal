@@ -1,8 +1,5 @@
-import { useSelector } from "react-redux";
-import selectUser  from "../../redux/reducers/auth";
-
 const ProfileMenu = () => {
-  const isLoggedIn = useSelector(selectUser).isLoggedIn;
+  const isLoggedIn = true;
   let items = [
     { name: "Login", url: "/login" },
     { name: "Offline watchling", url: "#" },

@@ -6,7 +6,8 @@ import App from "./App.tsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Category from "./pages/Category";
-
+import Login from "./pages/Login";
+import Signup from "./pages/Signup.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,22 @@ const router = createBrowserRouter([
   {
     path: "/search/:query",
     element: <h1>Search</h1>,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/profile",
+    element: <h1>Profile</h1>,
+  },
+  {
+    path: "/settings",
+    element: <h1>Settings</h1>,
   },
   {
     path: "*",
