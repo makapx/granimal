@@ -1,5 +1,5 @@
-import { AnimeFragment } from "../api/types";
-import TableSkeleton from "./common/TableSkeleton";
+import { AnimeFragment } from "../../api/types";
+import TableSkeleton from "./TableSkeleton";
 
 type ToplistProps = { media: AnimeFragment[]; title?: string };
 

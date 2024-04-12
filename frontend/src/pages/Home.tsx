@@ -2,7 +2,7 @@ import Header from "../components/layout/Header";
 import Hero from "../components/pages/home/Hero";
 import Container from "../components/layout/Container";
 import { useEffect, useState } from "react";
-import Toplist from "../components/Toplist";
+import Toplist from "../components/common/Toplist";
 import { AnimeFragment } from "../api/types";
 import { searchAnime } from "../api/anime.api";
 
@@ -30,6 +30,7 @@ const Home = () => {
       <Hero />
       <Container>
         <Toplist media={featured} title="Popular"/>
+
       </Container>
     </>
   );
