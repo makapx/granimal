@@ -36,15 +36,15 @@ const Hero = () => {
                 </Link>
                 <Link to="/login">
                   <Button
-                    variant="secondary"
+                    variant="primary"
                     text="Login"
                   />
                 </Link>
 
-                  <Button
-                    variant="secondary"
-                    text="Continue without an account"
-                  />
+                <Button
+                  variant="secondary"
+                  text="Continue without an account"
+                />
               </div>
             </div>
           </div>
