@@ -1,7 +1,7 @@
 interface ButtonProps {
     variant: 'primary' | 'secondary' | 'danger' | 'success';
     text: string;
-    onClick: () => void;
+    onClick?: () => void;
     disabled?: boolean;
     className?: string;
 }

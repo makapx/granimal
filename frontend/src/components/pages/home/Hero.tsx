@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../common/Button";
 
 const Hero = () => {
@@ -30,12 +31,20 @@ const Hero = () => {
               </div>
 
               <div className="mt-8 gap-3 flex justify-center">
-                <Button variant="primary" text="Signup" onClick={() => {}} />
-                <Button
-                  variant="secondary"
-                  text="Continue without an account"
-                  onClick={() => {}}
-                />
+                <Link to="/signup">
+                  <Button variant="primary" text="Signup" />
+                </Link>
+                <Link to="/login">
+                  <Button
+                    variant="secondary"
+                    text="Login"
+                  />
+                </Link>
+
+                  <Button
+                    variant="secondary"
+                    text="Continue without an account"
+                  />
               </div>
             </div>
           </div>

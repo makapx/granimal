@@ -2,22 +2,20 @@ import "./index.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
-
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Category from "./pages/Category";
-import Login from "./pages/Login";
 import Signup from "./pages/Signup.tsx";
+
+import userStore from "./api/store/user.store.ts";
+import Login from "./pages/Login.tsx";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-  {
-    path: "/category/:id",
-    element: <Category />,
-  },
+
   {
     path: "/anime/:id",
     element: <h1>Anime</h1>,
@@ -53,3 +51,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <RouterProvider router={router} />
   </React.StrictMode>
 );
+
