@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import bcrypt from 'bcryptjs';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../api/user.api';
 import { createLoginAction } from '../../../store';
 /**
  * React component for login form

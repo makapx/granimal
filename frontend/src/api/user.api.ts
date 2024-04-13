@@ -1,6 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-import { UserType } from "./types";
-
 export type CreateUserParams = {
   username: string;
   password: string;

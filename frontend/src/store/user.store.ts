@@ -1,7 +1,7 @@
-import { createSlice, Dispatch, PayloadAction, Store } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, Store } from "@reduxjs/toolkit";
 import { jwtDecode, JwtPayload } from "jwt-decode"
 import { UserType } from "../api/types";
-import { createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
+import { createUser, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
 
 type UserState = {
     user?: UserType & { token: string };
@@ -16,7 +16,7 @@ const userStore = createSlice({
             const token = jwtDecode(action.payload) as UserType & JwtPayload;
             return { user: { token: action.payload, ...token } }
         },
-        logout(_, action: PayloadAction<undefined>) {
+        logout() {
             return {}
         }
     },

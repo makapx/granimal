@@ -1,10 +1,7 @@
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../store";
-import clsx from "clsx";
 import { Link, LinkProps } from "react-router-dom";
-import { UserState } from "../../store/type";
 import { createLogoutAction } from "../../store/user.store";
-import { FC } from "react";
 
 const ProfileMenu = () => {
   const dispatch = useDispatch();
