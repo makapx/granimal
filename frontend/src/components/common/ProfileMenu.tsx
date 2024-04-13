@@ -1,16 +1,28 @@
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { StoreState } from "../../store";
+import clsx from "clsx";
+import { Link, LinkProps } from "react-router-dom";
+import { UserState } from "../../store/type";
+import { createLogoutAction } from "../../store/user.store";
+import { FC } from "react";
+
 const ProfileMenu = () => {
-  const isLoggedIn = true;
-  let items = [
-    { name: "Login", url: "/login" },
+  const dispatch = useDispatch();
+  const user = useSelector( (state: StoreState) => state.user.user);
+  
+  const logout = () =>dispatch(createLogoutAction()) ;
+
+  let items: Array<{name: string, url: string, props?: Partial<LinkProps> }> = [
+    { name: "Login", url: "/login", props: { className: "font-bold"} },
     { name: "Offline watchling", url: "#" },
   ];
 
-  if (isLoggedIn) {
+  if (user) {
     items = [
-      { name: "Profile", url: "/profile" },
+      { name: user.username, url: "/profile", props: { className: "font-bold"} },
       { name: "Watchlist", url: "/watchlist" },
       { name: "Settings", url: "/settings" },
-      { name: "Logout", url: "/logout" },
+      { name: "Logout", url: "/", props: { onClick: logout} },
     ];
   }
 
@@ -30,15 +42,20 @@ const ProfileMenu = () => {
       </div>
       <ul
         tabIndex={0}
-        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+        className="mt-3 z-[1] p-2 shadow menu  dropdown-content bg-base-100 rounded-box w-52"
       >
+
         {items.map((item, index) => (
           <li key={index}>
-            <a href={item.url}>{item.name}</a>
+            <Link to={item.url} {...item.props} >{item.name}</Link>
           </li>
         ))}
       </ul>
+
     </>
   );
 };
 export default ProfileMenu;
+/**
+ * 
+ */
