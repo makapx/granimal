@@ -2,6 +2,7 @@ import { User } from "../models/user.model";
 import { WebError } from "../misc/error";
 import { FastifyRequest } from "fastify";
 import { UserType } from "../types/user";
+import { isNull } from "lodash";
 
 export type CreateUserParams = {
   username: string;
@@ -42,5 +43,7 @@ export async function loginUser(params: LoginParams) {
   };
   throw new WebError(400,'login', "User not found");
 }
-
+export async function usernameFree(username: string ) {
+  return User.findOne({where: { username }}).then( result => isNull(result));
+}
 export const authenticate = (req: FastifyRequest<any>) => req.jwtVerify();

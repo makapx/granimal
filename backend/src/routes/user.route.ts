@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 import { UserType } from "../types/user";
-import { ChangePasswordParams, ChangePictureParams, CreateUserParams, LoginParams, authenticate, changeUserPassword, changeUserPicture, createUser, loginUser } from "../providers/user.providers";
+import { ChangePasswordParams, ChangePictureParams, CreateUserParams, LoginParams, authenticate, changeUserPassword, changeUserPicture, createUser, loginUser, usernameFree } from "../providers/user.providers";
 
 
 
@@ -18,6 +18,9 @@ export default function (app: FastifyInstance, opts: unknown, done: Function) {
         const user = await loginUser(req.body);
         const token = await reply.jwtSign(user);
         return { token };
+    });
+    app.get('/username-free', async ( req: FastifyRequest<{Querystring: { username: string }}> ) =>  {
+        return usernameFree(req.query.username).then( exists => ({exists}))
     });
 
     app.patch('/password', { onRequest: authenticate }, (req: FastifyRequest<{ Body: ChangePasswordParams}>) => {
