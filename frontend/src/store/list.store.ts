@@ -25,10 +25,11 @@ export const listStore = createSlice({
 export default listStore;
 
 /**
- * Creates a function that would dispatch
+ * Creates a factory of put into list actionss
+ * @param store 
+ * @returns 
  */
-export const usePutIntoListAction = () => {
-    const store = useStore();
+export const usePutIntoListAction = (store = useStore()) => {
     return async (trackingList: TrackingList) => {
         const user = selectUser(store.getState());
         if (user)
@@ -36,8 +37,13 @@ export const usePutIntoListAction = () => {
         store.dispatch(listStore.actions.setOne({ ...trackingList, userId: user?.id }))
     }
 }
-export const useRemoveFromListAction = () => {
-    const store = useStore();
+
+/**
+ * Creates a factory of remove from list actions
+ * @param store 
+ * @returns 
+ */
+export const useRemoveFromListAction = (store = useStore()) => {
     return async (trackingList: TrackingList) => {
         const id = isPlainObject(trackingList) ? trackingList.animeId : trackingList;
         const user = selectUser(store.getState());
@@ -47,6 +53,11 @@ export const useRemoveFromListAction = () => {
     }
 }
 
+/**
+ * Creates a factory of load all actions
+ * @param store 
+ * @returns 
+ */
 export const useLoadAllAction = (store: Store = useStore()) => {
     return async () => {
         const user = selectUser(store.getState());

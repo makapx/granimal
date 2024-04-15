@@ -3,6 +3,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode"
 import { UserType } from "../api/types";
 import { createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
 import { useStore } from "react-redux";
+import { useLoadAllAction } from "./list.store";
 
 type UserState = {
     user?: UserType & { token: string };
@@ -26,34 +27,42 @@ const userStore = createSlice({
 })
 
 /**
- * Creates a function that would request, then dispatch to store user's
+ * Creates a factory of login actions
  * @returns 
  */
-export const useLoginAction = () => {
-    const store = useStore();
+export const useLoginAction = (store = useStore()) => {
     return async ( params: LoginParams ) => {
         const {token} = await loginUser(params);
         storeTokenIntoLocalStorage(token);
 
         const payload = jwtDecode(token) as UserType & JwtPayload;
         store.dispatch(userStore.actions.login({...payload, token}));        
+        useLoadAllAction(store)();
     }
 }
-
-export const useCreateUserAction = () => {
-    const store = useStore();
+/**
+ * Creates a factory of create user actions
+ * @param store 
+ * @returns 
+ */
+export const useCreateUserAction = (store = useStore()) => {
     return async ( params: CreateUserParams ) => {
         const {token} = await createUser(params);
         storeTokenIntoLocalStorage(token);
 
         const payload = jwtDecode(token) as UserType & JwtPayload;
         store.dispatch(userStore.actions.login({...payload, token}));        
-       
+        useLoadAllAction(store)();
+
     }
 }
 
-export const useLogoutAction = () => {
-    const store = useStore();
+/**
+ * Create a factory of logout actions
+ * @param store 
+ * @returns 
+ */
+export const useLogoutAction = (store = useStore()) => {
     return (  ) => {
         dropTokenFromLocalStorage();
         store.dispatch(userStore.actions.logout()); 
