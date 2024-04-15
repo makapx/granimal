@@ -6,6 +6,7 @@ import { AnimeFragment } from "../api/types";
 import { searchAnime } from "../api/anime.api";
 import { useEffect, useState } from "react";
 import Card from "../components/common/Card";
+import Footer from "../components/layout/Footer";
 
 const Category = () => {
   const { name } = useParams();
@@ -70,6 +71,7 @@ const Category = () => {
             ))}
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 };

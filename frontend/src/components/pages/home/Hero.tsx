@@ -30,18 +30,16 @@ const Hero = () => {
                 </p>
               </div>
 
-              <div className="mt-8 gap-3 flex justify-center">
-                <Link to="/signup">
-                  <Button variant="primary" text="Signup" />
-                </Link>
-                <Link to="/login">
+              <div className="mt-8 gap-3 flex justify-center flex-col md:flex-row align-center">
+                <Link to="/login" className="md:w-1/3">
                   <Button
+                   className="w-full justify-center"
                     variant="primary"
-                    text="Login"
+                    text="Sign to your account"
                   />
                 </Link>
-
                 <Button
+                  className="md:w-1/3 justify-center"
                   variant="secondary"
                   text="Continue without an account"
                 />
