@@ -1,15 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userStore, { createCreateUserAction, createLoginAction, userAfterInit } from "./user.store";
-
+import userStore, { userAfterInit, useCreateUserAction, useLoginAction, useLogoutAction, selectUser } from "./user.store";
+import listStore, { useLoadAllAction, usePutIntoListAction, useRemoveFromListAction, listAfterInit, selectors as listSelector } from "./list.store"
 export const store = configureStore({
     reducer: {
-        user: userStore.reducer
+        user: userStore.reducer,
+        list: listStore.reducer
     },
     middleware: defaultOnes => defaultOnes()
 });
 
 userAfterInit(store);
+listAfterInit(store);
 
-export type { StoreType as StoreState  } from "./type"
+export type StoreType = ReturnType<typeof store.getState>;
+
 export default store;
-export { createCreateUserAction, createLoginAction};
+
+export {  useCreateUserAction, useLoginAction, useLogoutAction,  selectUser};
+export { useLoadAllAction, usePutIntoListAction, useRemoveFromListAction, listSelector }

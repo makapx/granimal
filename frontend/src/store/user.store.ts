@@ -1,20 +1,19 @@
 import { createSlice, PayloadAction, Store } from "@reduxjs/toolkit";
 import { jwtDecode, JwtPayload } from "jwt-decode"
 import { UserType } from "../api/types";
-import { createUser, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
+import { createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
+import { useStore } from "react-redux";
 
 type UserState = {
     user?: UserType & { token: string };
 }
 
-
 const userStore = createSlice({
     name: 'user',
     initialState: {} as UserState,
     reducers: {
-        login(_, action: PayloadAction<string>) {
-            const token = jwtDecode(action.payload) as UserType & JwtPayload;
-            return { user: { token: action.payload, ...token } }
+        login(_, action: PayloadAction<UserType & { token: string }>) {
+            return { user: action.payload }
         },
         logout() {
             return {}
@@ -26,27 +25,50 @@ const userStore = createSlice({
 
 })
 
-export const createLoginAction = async (params: LoginParams) => {
-    const {token} = await loginUser(params);
-    storeTokenIntoLocalStorage(token);
-    return userStore.actions.login(token);
-} 
-export const createCreateUserAction = async (params: LoginParams) => {
-    const {token} = await createUser(params);
-    storeTokenIntoLocalStorage(token);
-    return userStore.actions.login(token);
-}
-export const createLogoutAction = () => {
-    dropTokenFromLocalStorage();
-    return userStore.actions.logout();
+/**
+ * Creates a function that would request, then dispatch to store user's
+ * @returns 
+ */
+export const useLoginAction = () => {
+    const store = useStore();
+    return async ( params: LoginParams ) => {
+        const {token} = await loginUser(params);
+        storeTokenIntoLocalStorage(token);
+
+        const payload = jwtDecode(token) as UserType & JwtPayload;
+        store.dispatch(userStore.actions.login({...payload, token}));        
+    }
 }
 
+export const useCreateUserAction = () => {
+    const store = useStore();
+    return async ( params: CreateUserParams ) => {
+        const {token} = await createUser(params);
+        storeTokenIntoLocalStorage(token);
+
+        const payload = jwtDecode(token) as UserType & JwtPayload;
+        store.dispatch(userStore.actions.login({...payload, token}));        
+       
+    }
+}
+
+export const useLogoutAction = () => {
+    const store = useStore();
+    return (  ) => {
+        dropTokenFromLocalStorage();
+        store.dispatch(userStore.actions.logout()); 
+    }
+}
 
 export default userStore;
 
 export function userAfterInit(store: Store) {
     const token =  loadTokenFromLocalStorage();
     if ( token ) {
-        store.dispatch(userStore.actions.login(token));
+        const payload = jwtDecode(token) as UserType & JwtPayload;
+        store.dispatch(userStore.actions.login({...payload, token}));
     }
 }
+
+export const selectToken = (state: any)  => state.user.user?.token;
+export const selectUser = (state: any)  => state.user?.user as UserType & { token: string } | undefined;

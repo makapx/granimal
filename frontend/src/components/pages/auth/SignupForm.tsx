@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createCreateUserAction } from '../../../store/user.store';
+import { useCreateUserAction } from '../../../store';
 import { usernameFree } from '../../../api/user.api';
 /**
  * React component for login form
@@ -17,7 +16,8 @@ import { usernameFree } from '../../../api/user.api';
  * @returns {JSX.Element} JSX Element
  */
 const SignupForm = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const createUser = useCreateUserAction();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -62,10 +62,11 @@ const SignupForm = () => {
 
     e.preventDefault();
 
-    // @ts-ignore
-    dispatch(createCreateUserAction({
+    createUser({
       username, password
-    }));
+    }).then( _ => navigate('/'))
+
+  
   }
 
   /**

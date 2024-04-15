@@ -1,13 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { StoreState } from "../../store";
+import { useSelector } from "react-redux";
 import { Link, LinkProps } from "react-router-dom";
-import { createLogoutAction } from "../../store/user.store";
+import { useLogoutAction, selectUser } from "../../store/user.store";
 
 const ProfileMenu = () => {
-  const dispatch = useDispatch();
-  const user = useSelector( (state: StoreState) => state.user.user);
+  const user = useSelector(selectUser);
   
-  const logout = () =>dispatch(createLogoutAction()) ;
+  const logout = useLogoutAction()
 
   let items: Array<{name: string, url: string, props?: Partial<LinkProps> }> = [
     { name: "Login", url: "/login", props: { className: "font-bold"} },

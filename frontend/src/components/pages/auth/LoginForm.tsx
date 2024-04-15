@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { createLoginAction } from '../../../store';
+import { useLoginAction } from '../../../store';
 /**
  * React component for login form
  * 
@@ -15,7 +14,7 @@ import { createLoginAction } from '../../../store';
  * @returns {JSX.Element} JSX Element
  */
 const LoginForm = () => {
-  const dispatch = useDispatch();
+  const loginAction = useLoginAction();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,11 +24,9 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createLoginAction({username, password})
-      .then( action => {
-        dispatch(action);
-        navigate('/');
-      });
+    loginAction({username, password}).then(
+      () => navigate('/')
+    );
   }
 
   /**
