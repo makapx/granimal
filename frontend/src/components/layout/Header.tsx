@@ -6,7 +6,7 @@ const Header = () => {
     <div className="navbar bg-neutral">
       <div className="flex-1">
         <Link to='/'>
-          <a className="btn btn-ghost text-xl text-base-100">Granimal</a>
+          <a className="btn btn-ghost text-xl text-base-100" href="/">Granimal</a>
         </Link>
         <Explorer />
       </div>

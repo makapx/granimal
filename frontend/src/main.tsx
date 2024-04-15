@@ -5,16 +5,18 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import Signup from "./pages/Signup.tsx";
-
 import Login from "./pages/Login.tsx";
-
+import Category from "./pages/Category.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-
+  {
+    path: "/category/:name",
+    element: <Category />,
+  },
   {
     path: "/anime/:id",
     element: <h1>Anime</h1>,
