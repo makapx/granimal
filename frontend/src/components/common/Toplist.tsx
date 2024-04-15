@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { AnimeFragment } from "../../api/types";
 import TableSkeleton from "./TableSkeleton";
 
@@ -29,7 +30,7 @@ const Toplist = ({ media, title }: ToplistProps) => {
           <tbody>
             {media.map((media) => (
               <tr className="border-b text-neutral font-medium" key={media.id}>
-                <td className="px-6 py-4">{media.title}</td>
+                <td className="px-6 py-4"> <Link to={`/anime/${media.id}`} className="link link-primary">{media.title}</Link> </td>
                 <td className="px-6 py-4">
                   {media.season} {media.seasonYear}
                 </td>
@@ -45,3 +46,4 @@ const Toplist = ({ media, title }: ToplistProps) => {
   );
 };
 export default Toplist;
+

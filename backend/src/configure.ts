@@ -3,13 +3,10 @@ import { env } from "process";
 import dotenv from "dotenv";
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import fastifyJwt from "@fastify/jwt";
-import fastifyAuth from "@fastify/jwt";
 
 import { WebError } from "./misc/error";
 import database from "./misc/database";
 import { keyPair } from "./misc/crypto-keys";
-import { error } from "console";
-
 
 dotenv.config();
 
