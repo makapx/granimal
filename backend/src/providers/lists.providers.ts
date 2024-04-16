@@ -3,11 +3,11 @@ import { TrackingLists } from "../models/lists.model";
 
 // Get tracking list of user id
 
-export async function getList(userId: number): Promise<{ animeIdList: any; }> {
+export async function getList(userId: number): Promise<TrackingList[]> {
     const trackingList = await TrackingLists.findAll({ where: { userId: userId } });
 
     const animeIdList = trackingList.map((trackingList) => trackingList.get());
-    return { animeIdList };
+    return  animeIdList ;
 }
 
 export async function putIntoList(userId: number, animeId: number, params: Partial<TrackingList>) {

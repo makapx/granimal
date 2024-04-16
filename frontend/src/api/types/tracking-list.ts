@@ -1,7 +1,10 @@
 export type TrackingList = {
-    userId: number;
+    userId?: number;
     animeId: number;
     status?: string;
     progress?: number;
-    score?: number
+    score?: number,
+    updatedAt: string;
+    createdAt: string;
 }
+

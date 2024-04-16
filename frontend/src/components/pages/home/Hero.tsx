@@ -12,7 +12,7 @@ const Hero = () => {
           <div className="bg-gradient-to-tr from-accent via-secondary to-accent blur-3xl h-screen w-screen"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative">
           <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
             <div className="max-w-2xl text-center mx-auto">
               <div className="mt-5 max-w-2xl">

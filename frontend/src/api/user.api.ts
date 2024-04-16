@@ -33,6 +33,16 @@ export function createUser(params: CreateUserParams): Promise<TokenResult> {
 }
 
 /**
+ * Tests if username exists
+ * @param params 
+ * @returns a new token
+ */
+export function usernameFree(username: string): Promise<boolean> {
+  return fetch('/api/auth/username-free?username=' + encodeURI(username))
+    .then( result => result.json().then(({exists}: {exists: boolean}) => exists));
+}
+
+/**
  * Authenticates a user
  * @param params 
  * @returns a new token
@@ -86,4 +96,17 @@ export function changeUserPicture(params: ChangePictureParams, token: string): P
     ? result.json() as Promise<TokenResult>
     : Promise.reject(result)
   );
+}
+
+
+const LS_KEY = 'GRANIMAL_JWT';
+export function storeTokenIntoLocalStorage(token: string): void {
+  localStorage.setItem(LS_KEY, token);
+}
+export function dropTokenFromLocalStorage(): void {
+  localStorage.removeItem(LS_KEY);
+}
+export function loadTokenFromLocalStorage(): string | null {
+  const token = localStorage.getItem(LS_KEY);
+  return token;
 }
