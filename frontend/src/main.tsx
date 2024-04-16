@@ -2,21 +2,21 @@ import "./index.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
+import { Provider as ReduxProvider } from 'react-redux'
+import Store from "./store";
 import App from "./App.tsx";
-import Signup from "./pages/Signup.tsx";
 import Login from "./pages/Login.tsx";
-import Category from "./pages/Category.tsx";
+import Signup from "./pages/Signup.tsx";
+import ToastViewport from "./components/layout/ToastViewport.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-  {
-    path: "/category/:name",
-    element: <Category />,
-  },
+
   {
     path: "/anime/:id",
     element: <h1>Anime</h1>,
@@ -49,7 +49,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <ReduxProvider store={Store}>
+      <ToastViewport>
+        <RouterProvider router={router} />
+      </ToastViewport>
+    </ReduxProvider>
   </React.StrictMode>
 );
 

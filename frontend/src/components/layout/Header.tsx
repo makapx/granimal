@@ -5,8 +5,8 @@ const Header = () => {
   return (
     <div className="navbar bg-neutral">
       <div className="flex-1">
-        <Link to='/'>
-          <a className="btn btn-ghost text-xl text-base-100" href="/">Granimal</a>
+        <Link to='/' className="btn btn-ghost text-xl text-base-100">
+          Granimal
         </Link>
         <Explorer />
       </div>

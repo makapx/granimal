@@ -1,12 +1,13 @@
 import { TrackingList } from "./types/tracking-list"
 
-export function getList(userId?: number) {
-    return fetch(`/api/list/${userId ?? 'me'}`)
+export function getList(userId: number) {
+    return fetch(`/api/list/${userId}`)
         .then( result => {
             if ( result.ok ) return result.json() as Promise<TrackingList[]>;
-            else Promise.reject(result);
+            else return Promise.reject(result);
         });
 }
+
 export function putIntoList(token: string, data: Omit<TrackingList,'userId'> ) {
     return fetch(`/api/list/me/${data.animeId}`, {
         method: 'PUT',
@@ -21,6 +22,7 @@ export function putIntoList(token: string, data: Omit<TrackingList,'userId'> ) {
         else Promise.reject(result);
     });
 }
+
 export function patchListEntry(token: string, data: Omit<TrackingList,'userId'>) {
     return fetch(`/api/list/me/${data.animeId}`, {
         method: 'PATCH',
@@ -35,7 +37,8 @@ export function patchListEntry(token: string, data: Omit<TrackingList,'userId'>)
         else Promise.reject(result);
     });
 }
-export function deleteFromList(token: string, animeId: number) {
+
+export function deleteFromList(token: string, animeId: number|string) {
     return fetch(`/api/list/me/${animeId}`, {
         method: 'DELETE',
         headers: {
