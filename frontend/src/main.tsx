@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Category from "./pages/Category";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup.tsx";
+import AnimePage from "./pages/AnimePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/anime/:id",
-    element: <h1>Anime</h1>,
+    element: <AnimePage />
   },
   {
     path: "/search/:query",
