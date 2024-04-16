@@ -4,6 +4,7 @@ import { UserType } from "../api/types";
 import { changeUserPassword, changeUserPicture, createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
 import { useStore } from "react-redux";
 import { useLoadAllAction } from "./list.store";
+import toastsStore, { useCreateToastAction } from "./toast.store";
 
 type UserState = {
     user?: UserType & { token: string };
@@ -110,9 +111,20 @@ function parseAndDispatch(token: string, store: Store) {
 
 export function userAfterInit(store: Store) {
     const token =  loadTokenFromLocalStorage();
+    const createToast = useCreateToastAction(store);
     if ( token ) {
         const payload = jwtDecode(token) as UserType & JwtPayload;
         store.dispatch(userStore.actions.login({...payload, token}));
+        createToast({
+            title: 'Ciao',
+            message: `Benvenuto ${payload.username}`
+        }, 5e3);
+    }
+    else {
+        createToast({
+            title: 'Ciao',
+            message: `Benvenuto, stai navigando come anonimo!`
+        }, 5e3);
     }
 }
 

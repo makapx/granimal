@@ -1,11 +1,17 @@
 import { useSelector } from "react-redux";
 import { Link, LinkProps } from "react-router-dom";
 import { useLogoutAction, selectUser } from "../../store/user.store";
+import { useCreateToastAction } from "../../store";
 
 const ProfileMenu = () => {
   const user = useSelector(selectUser);
+  const createToast = useCreateToastAction();
+  const logoutAction = useLogoutAction();
   
-  const logout = useLogoutAction()
+  const logout = () => {
+    logoutAction();
+    createToast({title: 'Bye bye', message: 'Hai effettuato il logout!'}, 5e3);
+  }
 
   let items: Array<{name: string, url: string, props?: Partial<LinkProps> }> = [
     { name: "Login", url: "/login", props: { className: "font-bold"} },

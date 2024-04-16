@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useLoginAction } from '../../../store';
+import { useCreateToastAction, useLoginAction } from '../../../store';
 /**
  * React component for login form
  * 
@@ -21,11 +21,14 @@ const LoginForm = () => {
   const [rem, setRem] = useState(false);
 
   const router = useNavigate();
-
+  const createToast = useCreateToastAction();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loginAction({username, password}).then(
-      () => navigate('/')
+      () => {
+        navigate('/');
+        createToast({title: 'Login effettuato', message: `Benvenuto utente ${username}!`}, 10e3)
+      }
     );
   }
 

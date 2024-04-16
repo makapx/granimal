@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
-import { useCreateUserAction } from '../../../store';
+import { useCreateToastAction, useCreateUserAction } from '../../../store';
 import { usernameFree } from '../../../api/user.api';
 /**
  * React component for login form
@@ -24,7 +24,7 @@ const SignupForm = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [usernameIsValid, setUsernameIsValid] = useState<boolean| null>(null);
-
+  const createToast = useCreateToastAction();
   useEffect(() => {
     if (password === passwordRepeat) {
       setPasswordMatch(true);
@@ -64,7 +64,10 @@ const SignupForm = () => {
 
     createUser({
       username, password
-    }).then( _ => navigate('/'))
+    }).then( _ => {
+      createToast({title: 'Utente registrato', message: `Benvenuto utente ${username}!`}, 10e3)
+      navigate('/');
+    })
 
   
   }

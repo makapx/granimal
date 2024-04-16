@@ -9,16 +9,14 @@ import Store from "./store";
 import App from "./App.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
+import ToastViewport from "./components/layout/ToastViewport.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-  {
-    path: "/category/:name",
-    element: <Category />,
-  },
+
   {
     path: "/anime/:id",
     element: <h1>Anime</h1>,
@@ -52,7 +50,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ReduxProvider store={Store}>
-      <RouterProvider router={router} />
+      <ToastViewport>
+        <RouterProvider router={router} />
+      </ToastViewport>
     </ReduxProvider>
   </React.StrictMode>
 );
