@@ -4,7 +4,7 @@ import { UserType } from "../api/types";
 import { changeUserPassword, changeUserPicture, createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
 import { useStore } from "react-redux";
 import { useLoadAllAction } from "./list.store";
-import toastsStore, { useCreateToastAction } from "./toast.store";
+import { useCreateToastAction } from "./toast.store";
 
 type UserState = {
     user?: UserType & { token: string };
