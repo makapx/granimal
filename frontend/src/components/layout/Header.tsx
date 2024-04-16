@@ -1,11 +1,12 @@
 import ProfileMenu from "../common/ProfileMenu";
 import Explorer from "../common/Explorer";
 import { Link } from "react-router-dom";
+import ThemeSwitcher from "../common/ThemeSwitcher";
 const Header = () => {
   return (
     <div className="navbar bg-neutral">
       <div className="flex-1">
-        <Link to='/' className="btn btn-ghost text-xl text-base-100">
+        <Link to='/' className="btn btn-ghost text-xl text-neutral-content">
           Granimal
         </Link>
         <Explorer />
@@ -21,6 +22,7 @@ const Header = () => {
         <div className="dropdown dropdown-end">
           <ProfileMenu />
         </div>
+        <ThemeSwitcher />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { getGenres } from "../../api/anime.api";
 
 /**
  * Category explorer
- * 
+ *
  * @returns {JSX.Element} Explorer
  */
 const Explorer = () => {
@@ -21,20 +21,33 @@ const Explorer = () => {
   }, []);
 
   return (
-      <div className="dropdown dropdown-hover">
-        <div tabIndex={0} role="button" className="btn m-1 btn-ghost text-base-100">
-            Categories
-        </div>
-        <div className="p-8 z-50 shadow dropdown-content bg-base-100 rounded-box">
-            <div className=" w-96 grid md:grid-cols-3 gap-4">
-                {categories && !loading && categories.map((category) => (
-                    <a key={category} href={`/category/${category.toLowerCase().trim().replace(" ", "-")}`} className="cursor-pointer">
-                    {category}
-                    </a>
-                ))}
-            </div>
+    <div className="dropdown dropdown-hover">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn m-1 btn-ghost text-neutral-content"
+      >
+        Categories
+      </div>
+      <div className="p-8 z-50 shadow dropdown-content bg-base-100 rounded-box">
+        <div className=" w-96 grid md:grid-cols-3 gap-4">
+          {categories &&
+            !loading &&
+            categories.map((category) => (
+              <a
+                key={category}
+                href={`/category/${category
+                  .toLowerCase()
+                  .trim()
+                  .replace(" ", "-")}`}
+                className="cursor-pointer text-base-100-content"
+              >
+                {category}
+              </a>
+            ))}
         </div>
       </div>
+    </div>
   );
 };
 
