@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getGenres } from "../../api/anime.api";
+import { Link, createSearchParams } from "react-router-dom";
 
 /**
  * Category explorer
@@ -34,16 +35,13 @@ const Explorer = () => {
           {categories &&
             !loading &&
             categories.map((category) => (
-              <a
+              <Link
                 key={category}
-                href={`/category/${category
-                  .toLowerCase()
-                  .trim()
-                  .replace(" ", "-")}`}
+                to={{pathname: '/search', search: createSearchParams({genres:[category]}).toString()}}
                 className="cursor-pointer text-base-100-content"
               >
                 {category}
-              </a>
+              </Link>
             ))}
         </div>
       </div>

@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 import Button from "./Button";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 const Search = () => {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const search = () => {
-    window.location.href = `/search/${query}`;
+  const queryIsValid = query.length >= 3;
+
+  const onSearch = (event?: React.FormEvent) => {
+    event?.preventDefault();
+    if ( queryIsValid ){
+      navigate({
+        pathname: '/search', 
+        search: createSearchParams({
+          search: query
+        }).toString()
+    });
+    }
   };
+
   return (
     <>
-      <div className="form-control">
+    <form onSubmit={onSearch} className="join">
         <input
           type="text"
           placeholder="Search"
-          className="input input-bordered w-24 md:w-auto"
+          className="input input-bordered w-24 md:w-auto join-item"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-      </div>
-      <Button variant="primary" text="Search" onClick={search} disabled={query === ""}/>
+      <Button variant="primary"  className="join-item" text="Search" onClick={onSearch} disabled={!queryIsValid}/>
+    </form>
     </>
   );
 };
