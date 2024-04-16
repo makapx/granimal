@@ -10,7 +10,6 @@ import App from "./App.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import ToastViewport from "./components/layout/ToastViewport.tsx";
-import Category from "./pages/Category.tsx";
 import Search from "./pages/Search.tsx";
 
 const router = createBrowserRouter([
@@ -23,7 +22,7 @@ const router = createBrowserRouter([
     element: <h1>Anime</h1>,
   },
   {
-    path: "/search/:query",
+    path: "/search",
     element: <Search />,
   },
   {

@@ -1,3 +1,4 @@
+import { cullUndefined } from "../utils/object";
 import { Anime, AnimeGenresResult, AnimeRecommendationParams, AnimeRecommendationResult, AnimeSearchParams, AnimeSearchResult } from "./types";
 
 /**
@@ -6,7 +7,7 @@ import { Anime, AnimeGenresResult, AnimeRecommendationParams, AnimeRecommendatio
  * @returns 
  */
 export function searchAnime(params: AnimeSearchParams): Promise<AnimeSearchResult> {
-    const querystring = new URLSearchParams(params as Record<string,string>);
+    const querystring = new URLSearchParams(cullUndefined(params) as Record<string,string>);
     return fetch(`/api/anime?` + querystring.toString())
         .then( res => res.json() as Promise<AnimeSearchResult>)
 }

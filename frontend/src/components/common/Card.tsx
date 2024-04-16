@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Card = ({
   title,
   image,
@@ -9,11 +11,11 @@ const Card = ({
   image?: string;
   genres?: string[];
   episode?: number;
-  url?: string;
+  url: string;
 }) => {
   return (
     <>
-      <a href={url}>
+      <Link to={url}>
         <div className="card max-w-96 shadow-xl h-auto image-full max-h-96">
           {episode && (
             <span className="badge badge-accent badge-sm w-9 h-9 absolute top-6 right-6 z-40">
@@ -47,7 +49,7 @@ const Card = ({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     </>
   );
 };
