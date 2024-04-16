@@ -11,6 +11,10 @@ export default function (app: FastifyInstance, opts: unknown, done: Function) {
     app.get('', async (req: FastifyRequest<{ Querystring: AnimeSearchParams }>) => {
         return searchAnime(req.query);
     });
+    // same as before, but accepts post requests instead
+    app.post('', async (req: FastifyRequest<{ Body: AnimeSearchParams }>) => {
+        return searchAnime(req.body);
+    });
 
     // get anime by Id
     app.get('/:id', (req: FastifyRequest<{ Params: { id: number } }>) => {

@@ -12,6 +12,22 @@ export function searchAnime(params: AnimeSearchParams): Promise<AnimeSearchResul
 }
 
 /**
+ * @description Same as searchAnime, but uses post
+ * @param params 
+ * @returns 
+ */
+export function searchAnimeUsingPost(params: AnimeSearchParams): Promise<AnimeSearchResult> {
+    return fetch(`/api/anime`, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+    })
+    .then( res => res.json() as Promise<AnimeSearchResult>)
+}
+
+/**
  * @description Get anime by id
  * @param id anime id 
  * @returns 
