@@ -10,20 +10,21 @@ import App from "./App.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import ToastViewport from "./components/layout/ToastViewport.tsx";
+import Category from "./pages/Category.tsx";
+import Search from "./pages/Search.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-
   {
     path: "/anime/:id",
     element: <h1>Anime</h1>,
   },
   {
     path: "/search/:query",
-    element: <h1>Search</h1>,
+    element: <Search />,
   },
   {
     path: "/login",

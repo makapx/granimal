@@ -55,6 +55,7 @@ const Button = ({
                 bg-primary text-base-100
                 disabled:opacity-50
                 disabled:pointer-events-none
+                cursor-pointer
                 ${getVariantStyles()}
                 ${className}
             `}

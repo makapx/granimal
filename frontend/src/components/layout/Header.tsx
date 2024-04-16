@@ -2,6 +2,7 @@ import ProfileMenu from "../common/ProfileMenu";
 import Explorer from "../common/Explorer";
 import { Link } from "react-router-dom";
 import ThemeSwitcher from "../common/ThemeSwitcher";
+import Search from "../common/Search";
 const Header = () => {
   return (
     <div className="navbar bg-neutral">
@@ -12,13 +13,7 @@ const Header = () => {
         <Explorer />
       </div>
       <div className="flex-none gap-2">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
-        </div>
+        <Search />
         <div className="dropdown dropdown-end">
           <ProfileMenu />
         </div>
