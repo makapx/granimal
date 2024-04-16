@@ -20,10 +20,9 @@ Ci auguriamo che vi piaccia e attendiamo con ansia i vostri contributi!
 ----------------------------------------------------------------
 Autori e riconoscimenti
 
-Marco Spampinato
-Martina Parlavecchio
-Andrei (scusa non so il cognome)
+Marco Spampinato,
+Martina Parlavecchio,
+Andrei Daniel Stefan,
 Grazia Pagano
 
---------------------------------------------------------------------------
-licenza
+---
