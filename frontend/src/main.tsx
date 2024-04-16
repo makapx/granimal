@@ -2,13 +2,17 @@ import "./index.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Category from "./pages/Category";
-import Login from "./pages/Login";
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
+import { Provider as ReduxProvider } from 'react-redux'
+import Store from "./store";
+import App from "./App.tsx";
+import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import AnimePage from "./pages/AnimePage.tsx";
+import ToastViewport from "./components/layout/ToastViewport.tsx";
+import Category from "./pages/Category.tsx";
+import Search from "./pages/Search.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,16 +20,12 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/category/:id",
-    element: <Category />,
-  },
-  {
     path: "/anime/:id",
     element: <AnimePage />
   },
   {
     path: "/search/:query",
-    element: <h1>Search</h1>,
+    element: <Search />,
   },
   {
     path: "/login",
@@ -51,6 +51,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <ReduxProvider store={Store}>
+      <ToastViewport>
+        <RouterProvider router={router} />
+      </ToastViewport>
+    </ReduxProvider>
   </React.StrictMode>
 );
+

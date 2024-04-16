@@ -1,7 +1,7 @@
 interface ButtonProps {
     variant: 'primary' | 'secondary' | 'danger' | 'success';
     text: string;
-    onClick: () => void;
+    onClick?: () => void;
     disabled?: boolean;
     className?: string;
 }
@@ -55,6 +55,7 @@ const Button = ({
                 bg-primary text-base-100
                 disabled:opacity-50
                 disabled:pointer-events-none
+                cursor-pointer
                 ${getVariantStyles()}
                 ${className}
             `}

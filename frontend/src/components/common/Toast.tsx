@@ -1,4 +1,7 @@
-const Toast = () => {
+import { ToastType, useCloseToastAction } from "../../store";
+
+const Toast = ({toast: { id, title, message}}: { toast: ToastType }) => {
+  const closeAction = useCloseToastAction();
   return (
     <>
       <div
@@ -14,10 +17,10 @@ const Toast = () => {
           />
           <div className="ms-3 text-sm text-left font-normal">
             <span className="mb-1 text-sm font-semibold text-neutral-content dark:text-white">
-              Ciao
+              {title}
             </span>
             <div className="mb-2 text-sm font-normal text-neutral-content">
-              Hi..!how are y?
+              {message}
             </div>
           </div>
           <button
@@ -25,6 +28,7 @@ const Toast = () => {
             className="ms-auto -mx-1.5 -my-1.5 w-6 h-6 bg-transparent justify-center items-center flex-shrink-0 text-base-100 hover:text-gray-900 rounded-lg focus:ring-0 p-1.5 inline-flex h-8 w-8  dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             data-dismiss-target="#toast-message-cta"
             aria-label="Close"
+            onClick={() => closeAction(id)}
           >
             <span className="sr-only">Close</span>
             <svg

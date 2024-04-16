@@ -1,7 +1,5 @@
 import { map } from "lodash";
-import day from "dayjs";
 import { convertDate } from "./utils";
-import { ArrayResult } from "../../types/result";
 import { WebError } from "../../misc/error";
 import { AnimeFragment, AnimeSearchParams, AnimeSearchResult } from "../../types/anime";
 

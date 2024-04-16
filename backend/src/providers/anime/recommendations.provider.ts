@@ -1,4 +1,3 @@
-import { ArrayResult } from "../../types/result";
 import { WebError } from "../../misc/error";
 import { AnilistFragment, mapFragments } from "./fragment.provider";
 import { AnimeRecommendationParams, AnimeRecommendationResult } from "../../types/anime";

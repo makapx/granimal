@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../common/Button";
 
 const Hero = () => {
@@ -11,7 +12,7 @@ const Hero = () => {
           <div className="bg-gradient-to-tr from-accent via-secondary to-accent blur-3xl h-screen w-screen"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative">
           <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
             <div className="max-w-2xl text-center mx-auto">
               <div className="mt-5 max-w-2xl">
@@ -29,12 +30,18 @@ const Hero = () => {
                 </p>
               </div>
 
-              <div className="mt-8 gap-3 flex justify-center">
-                <Button variant="primary" text="Signup" onClick={() => {}} />
+              <div className="mt-8 gap-3 flex justify-center flex-col md:flex-row align-center">
+                <Link to="/login" className="md:w-1/3">
+                  <Button
+                   className="w-full justify-center"
+                    variant="primary"
+                    text="Sign to your account"
+                  />
+                </Link>
                 <Button
+                  className="md:w-1/3 justify-center"
                   variant="secondary"
                   text="Continue without an account"
-                  onClick={() => {}}
                 />
               </div>
             </div>

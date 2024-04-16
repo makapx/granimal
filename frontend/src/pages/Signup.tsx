@@ -1,3 +1,5 @@
+import Container from "../components/layout/Container";
+import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import SignupForm from "../components/pages/auth/SignupForm";
 
@@ -5,7 +7,11 @@ const Signup = () => {
   return (
     <>
       <Header />
-      <SignupForm />
+      <Container>
+        <div className="bg-gradient-to-tr from-accent via-secondary to-accent blur-3xl absolute w-full h-full top-0 left-0 -z-10"></div>
+        <SignupForm />
+      </Container>
+      <Footer />
     </>
   );
 };
