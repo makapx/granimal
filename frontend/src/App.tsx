@@ -1,9 +1,9 @@
-import Home from './pages/Home'
+import AnimePage from './pages/AnimePage';
 
 const App = () => {
   return (
     <>
-      <Home />
+      <AnimePage />
     </>
   )
 }
