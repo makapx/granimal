@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Toplist from "../components/common/Toplist";
 import { AnimeFragment } from "../api/types";
 import { searchAnime } from "../api/anime.api";
+import Footer from "../components/layout/Footer";
 
 const Home = () => {
   const [featured, setFeatured] = useState<AnimeFragment[]>([]);
@@ -32,6 +33,7 @@ const Home = () => {
         <Toplist media={featured} title="Popular"/>
 
       </Container>
+      <Footer />
     </>
   );
 };
