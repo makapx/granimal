@@ -7,6 +7,7 @@ import Card from "../components/common/Card";
 import { useEffect, useState } from "react";
 import { searchAnime } from "../api/anime.api";
 import { AnimeSearchParams, AnimeSearchResult } from "../api/types";
+import Loading from "../components/common/Loading";
 
 function parseSearchParams(params: URLSearchParams): Partial<AnimeSearchParams> {
   const result = [...params.entries()].reduce((next, [key, value]) => ({ ...next, [key]: value }), {}) as Partial<AnimeSearchParams>;
@@ -81,11 +82,7 @@ const Search = () => {
         {genres && <h1 className="p-5 pt-8 text-xl">You're looking for genre: {genres}</h1>}
 
         {results && renderResults(results)}
-        {!results && (<>
-          <div className="min-h-[66vh] flex items-center justify-center flex-col scale-[200%]">
-            <span className="loading loading-infinity loading-lg text-primary"></span>
-            </div>
-        </>)}
+        {!results && <Loading />}
 
       </Container>
       <Footer />

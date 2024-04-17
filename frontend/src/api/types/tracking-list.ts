@@ -4,7 +4,7 @@ export type TrackingList = {
     status?: string;
     progress?: number;
     score?: number,
-    updatedAt: string;
-    createdAt: string;
+    updatedAt?: string;
+    createdAt?: string;
 }
 
