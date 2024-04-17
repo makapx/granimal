@@ -25,7 +25,7 @@ const Toast = ({toast: { id, title, message}}: { toast: ToastType }) => {
           </div>
           <button
             type="button"
-            className="ms-auto -mx-1.5 -my-1.5 w-6 h-6 bg-transparent justify-center items-center flex-shrink-0 text-base-100 hover:text-gray-900 rounded-lg focus:ring-0 p-1.5 inline-flex h-8 w-8  dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            className="ms-auto -mx-1.5 -my-1.5 bg-transparent justify-center items-center flex-shrink-0 text-base-100 hover:text-gray-900 rounded-lg focus:ring-0 p-1.5 inline-flex h-8 w-8  dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
             data-dismiss-target="#toast-message-cta"
             aria-label="Close"
             onClick={() => closeAction(id)}
@@ -40,9 +40,9 @@ const Toast = ({toast: { id, title, message}}: { toast: ToastType }) => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
               />
             </svg>
