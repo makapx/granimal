@@ -35,20 +35,27 @@ export default toastsStore;
  * @param store 
  * @returns 
  */
-export const useCreateToastAction = (store: Store = useStore()) => {
+export const useCreateToastAction = () => {
+    const store = useStore();
+
     return (data: Omit<ToastType, 'id'>, timeout: number = 0) => {
-        const id = nextId();
-        store.dispatch(toastsStore.actions.addOne({ id, ...data }));
-        if (timeout > 0) {
-            const removeAction = toastsStore.actions.removeOne(id);
-            setTimeout(() => store.dispatch(removeAction), timeout);
-        }
-        return id;
+        return createToastWithStore(store, data, timeout);
     }
 }
 
-export const useCloseToastAction = (store = useStore()) => {
+export const useCloseToastAction = () => {
+    const store = useStore();
     return (id: number) => store.dispatch(toastsStore.actions.removeOne(id));
 }
 
 export const selectToasts = toastsStore.selectors.select;
+
+export function createToastWithStore(store: Store, data: Omit<ToastType, "id">, timeout: number) {
+    const id = nextId();
+    store.dispatch(toastsStore.actions.addOne({ id, ...data }));
+    if (timeout > 0) {
+        const removeAction = toastsStore.actions.removeOne(id);
+        setTimeout(() => store.dispatch(removeAction), timeout);
+    }
+    return id;
+}

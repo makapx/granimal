@@ -29,7 +29,8 @@ export default listStore;
  * @param store 
  * @returns 
  */
-export const usePutIntoListAction = (store = useStore()) => {
+export const usePutIntoListAction = () => {
+    const store = useStore();
     return async (trackingList: TrackingList) => {
         const user = selectUser(store.getState());
         if (user)
@@ -43,7 +44,8 @@ export const usePutIntoListAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useRemoveFromListAction = (store = useStore()) => {
+export const useRemoveFromListAction = () => {
+    const store = useStore();
     return async (trackingList: TrackingList) => {
         const id = isPlainObject(trackingList) ? trackingList.animeId : trackingList;
         const user = selectUser(store.getState());
@@ -58,33 +60,37 @@ export const useRemoveFromListAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useLoadAllAction = (store: Store = useStore()) => {
-    return async () => {
-        const user = selectUser(store.getState());
-        if (user) {
-            const list = await getList(user.id as number);
-            return store.dispatch(listStore.actions.setAll(list));
-        }
-        else {
-            try {
-                const list = localStorage.getItem(ANONYMOUS_LIST_KEY);
-                if (list) {
-                    return store.dispatch(listStore.actions.setAll(JSON.parse(list)));
-                }
-
-            }
-            catch (error) {
-                console.error(error)
-            }
-            return store.dispatch(listStore.actions.setAll([]));
-
-        }
-    }
+export const useLoadAllAction = () => {
+    const store = useStore();
+    return () => loadAllActionWithStore(store)
 }
 
 
+export async function loadAllActionWithStore(store: Store) {
+    const user = selectUser(store.getState());
+    if (user) {
+        const list = await getList(user.id as number);
+        return store.dispatch(listStore.actions.setAll(list));
+    }
+    else {
+        try {
+            const list = localStorage.getItem(ANONYMOUS_LIST_KEY);
+            if (list) {
+                return store.dispatch(listStore.actions.setAll(JSON.parse(list)));
+            }
+
+        }
+        catch (error) {
+            console.error(error);
+        }
+        return store.dispatch(listStore.actions.setAll([]));
+
+    }
+}
+
 function compareTrackingListEntity(a: TrackingList, b: TrackingList) {
-    return (new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    const now = Date.now();
+    return (new Date(b.updatedAt ?? now).getTime() - new Date(a.updatedAt ?? now).getTime());
 }
 
 export const selectors = listStore.getSelectors();
@@ -94,7 +100,7 @@ export const selectors = listStore.getSelectors();
  * @param store 
  */
 export function listAfterInit(store: Store) {
-    useLoadAllAction(store)()
+    loadAllActionWithStore(store)
         .then(action => store.dispatch(action));
 
     store.subscribe(() => {

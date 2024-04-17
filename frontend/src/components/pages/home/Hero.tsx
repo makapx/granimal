@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "../../common/Button";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store";
 
 const Hero = () => {
+
+  const isLogged = useSelector(selectUser);
   return (
     <>
       <div className="relative overflow-hidden">
@@ -30,7 +34,7 @@ const Hero = () => {
                 </p>
               </div>
 
-              <div className="mt-8 gap-3 flex justify-center flex-col md:flex-row align-center">
+              {!isLogged && <div className="mt-8 gap-3 flex justify-center flex-col md:flex-row items-center">
                 <Link to="/login" className="md:w-1/3">
                   <Button
                    className="w-full justify-center"
@@ -38,12 +42,8 @@ const Hero = () => {
                     text="Sign to your account"
                   />
                 </Link>
-                <Button
-                  className="md:w-1/3 justify-center"
-                  variant="secondary"
-                  text="Continue without an account"
-                />
-              </div>
+                <span className=" text-content font-bold text-base-100"> or continue without an account</span>
+              </div>}
             </div>
           </div>
         </div>

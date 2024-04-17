@@ -20,12 +20,12 @@ const Search = () => {
 
   const { search = undefined, page = 1, size = 10, genres = undefined, sort = 'SCORE', year = undefined, season = undefined } = parseSearchParams(searchParams);
   useEffect(() => {
-    if (searchParams.size === 0) return;
+    if (!(search|| genres|| year|| season)) return;
     setResults(undefined);
     searchAnime({
       search, page, size, genres, sort, year, season
     }).then(setResults);
-  }, [searchParams]);
+  }, [search, page, size, genres, sort, year, season]);
 
   const scrollPage = (direction: number) => () => setSearchParams(prev => {
     const next = new URLSearchParams(prev)

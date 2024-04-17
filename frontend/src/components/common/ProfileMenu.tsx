@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Link, LinkProps } from "react-router-dom";
 import { useLogoutAction, selectUser } from "../../store/user.store";
 import { useCreateToastAction } from "../../store";
+import profileImage from "../../../assets/john wick.webp";
 
 const ProfileMenu = () => {
   const user = useSelector(selectUser);
@@ -15,14 +16,15 @@ const ProfileMenu = () => {
 
   let items: Array<{name: string, url: string, props?: Partial<LinkProps> }> = [
     { name: "Login", url: "/login", props: { className: "font-bold"} },
-    { name: "Offline watchling", url: "#" },
+    { name: "Offline watchlist", url: "/profile" },
+
   ];
 
   if (user) {
     items = [
       { name: user.username, url: "/profile", props: { className: "font-bold"} },
-      { name: "Watchlist", url: "/watchlist" },
-      { name: "Settings", url: "/settings" },
+      { name: "Watchlist", url: "/profile" },
+      { name: "Settings", url: "/" },
       { name: "Logout", url: "/", props: { onClick: logout} },
     ];
   }
@@ -37,7 +39,7 @@ const ProfileMenu = () => {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            src={profileImage}
           />
         </div>
       </div>

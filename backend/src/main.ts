@@ -1,10 +1,11 @@
+
 import configure from "./configure";
 import animeRoute from "./routes/anime.route";
 import animeGenresRoute from "./routes/anime-genres.route";
 import userRoute from "./routes/user.route";
 import listRoute from "./routes/list.route";
 
-configure( async app => {
+configure(async app => {
 
   // mounts animeRoute in /api/anime
   app.register(animeRoute, { prefix: '/api/anime' });
@@ -16,7 +17,8 @@ configure( async app => {
   app.register(userRoute, { prefix: '/api/auth' });
   app.register(userRoute, { prefix: '/api/user' });
 
-  app.register(listRoute, { prefix: "/api/list"});
+  app.register(listRoute, { prefix: "/api/list" });
 
-  
+ 
+
 });

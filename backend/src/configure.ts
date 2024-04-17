@@ -2,6 +2,8 @@
 import { env } from "process";
 import dotenv from "dotenv";
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import fastifyStatic from "@fastify/static";
+import path from "path";
 import fastifyJwt from "@fastify/jwt";
 
 // installs cached fetch
@@ -25,11 +27,29 @@ export default async function configure(awaitableCallback: (app: FastifyInstance
 
   await awaitableCallback(app);
 
+  registerStatic(app);
 
   await app.listen({
     port: port
   });
   
+}
+
+function registerStatic(app: FastifyInstance) {
+  app.register(fastifyStatic, {
+    root: path.join(process.cwd(), '../frontend/dist')
+  });
+  app.setNotFoundHandler((req, res) => {
+    if (!req.url.startsWith('/api')) {
+      return res.sendFile('index.html');
+    }
+    else {
+      res.status(404);
+      res.send({
+        message: `Handler for ${req.method}:${req.url} not found`
+      });
+    }
+  });
 }
 
 async function registerAuthenticationFacilities(app: FastifyInstance) {
