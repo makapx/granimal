@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Container from "../components/layout/Container";
@@ -6,7 +6,7 @@ import Grid from "../components/layout/Grid";
 import Card from "../components/common/Card";
 import { useEffect, useState } from "react";
 import { searchAnime } from "../api/anime.api";
-import { AnimeFragment, AnimeSearchParams, AnimeSearchResult } from "../api/types";
+import { AnimeSearchParams, AnimeSearchResult } from "../api/types";
 import Loading from "../components/common/Loading";
 
 function parseSearchParams(params: URLSearchParams): Partial<AnimeSearchParams> {
@@ -20,17 +20,17 @@ const Search = () => {
 
   const { search = undefined, page = 1, size = 10, genres = undefined, sort = 'SCORE', year = undefined, season = undefined } = parseSearchParams(searchParams);
   useEffect(() => {
-    if (searchParams.size === 0) return;
+    if (!(search|| genres|| year|| season)) return;
     setResults(undefined);
     searchAnime({
       search, page, size, genres, sort, year, season
     }).then(setResults);
-  }, [searchParams]);
+  }, [search, page, size, genres, sort, year, season]);
 
   const scrollPage = (direction: number) => () => setSearchParams(prev => {
     const next = new URLSearchParams(prev)
-    prev.set('page', (Number(page) + direction).toString())
-    return prev;
+    next.set('page', (Number(page) + direction).toString())
+    return next;
   })
 
   const renderResults = ({ hasNext, result }: AnimeSearchResult) => {

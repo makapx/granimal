@@ -3,8 +3,8 @@ import { jwtDecode, JwtPayload } from "jwt-decode"
 import { UserType } from "../api/types";
 import { changeUserPassword, changeUserPicture, createUser, CreateUserParams, dropTokenFromLocalStorage, loadTokenFromLocalStorage, LoginParams, loginUser, storeTokenIntoLocalStorage } from "../api/user.api";
 import { useStore } from "react-redux";
-import { useLoadAllAction } from "./list.store";
-import { useCreateToastAction } from "./toast.store";
+import { loadAllActionWithStore } from "./list.store";
+import { createToastWithStore } from "./toast.store";
 
 type UserState = {
     user?: UserType & { token: string };
@@ -30,11 +30,12 @@ const userStore = createSlice({
  * Creates a factory of login actions
  * @returns 
  */
-export const useLoginAction = (store = useStore()) => {
-    return async ( params: LoginParams ) => {
-        const {token} = await loginUser(params);
+export const useLoginAction = () => {
+    const store = useStore();
+    return async (params: LoginParams) => {
+        const { token } = await loginUser(params);
         parseAndDispatch(token, store);
-        useLoadAllAction(store)();
+        loadAllActionWithStore(store);
     }
 }
 /**
@@ -42,11 +43,13 @@ export const useLoginAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useCreateUserAction = (store = useStore()) => {
-    return async ( params: CreateUserParams ) => {
-        const {token} = await createUser(params);
-        parseAndDispatch(token, store);      
-        useLoadAllAction(store)();
+export const useCreateUserAction = () => {
+    const store = useStore();
+    loadAllActionWithStore
+    return async (params: CreateUserParams) => {
+        const { token } = await createUser(params);
+        parseAndDispatch(token, store);
+        loadAllActionWithStore(store);
 
     }
 }
@@ -56,10 +59,12 @@ export const useCreateUserAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useLogoutAction = (store = useStore()) => {
-    return (  ) => {
+export const useLogoutAction = () => {
+    const store = useStore();
+    return () => {
         dropTokenFromLocalStorage();
-        store.dispatch(userStore.actions.logout()); 
+        store.dispatch(userStore.actions.logout());
+        loadAllActionWithStore(store);
     }
 }
 
@@ -68,11 +73,12 @@ export const useLogoutAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useChangePasswordAction = (store = useStore()) => {
+export const useChangePasswordAction = () => {
+    const store = useStore();
     return async (password: string) => {
         const user = selectUser(store.getState());
-        if ( user ) {
-            const {token} = await changeUserPassword({password}, user.token);
+        if (user) {
+            const { token } = await changeUserPassword({ password }, user.token);
             parseAndDispatch(token, store);
         }
     }
@@ -83,11 +89,12 @@ export const useChangePasswordAction = (store = useStore()) => {
  * @param store 
  * @returns 
  */
-export const useChangePictureAction = (store = useStore()) => {
+export const useChangePictureAction = () => {
+    const store = useStore();
     return async (picture: string) => {
         const user = selectUser(store.getState());
-        if ( user ) {
-            const {token} = await changeUserPicture({picture}, user.token);
+        if (user) {
+            const { token } = await changeUserPicture({ picture }, user.token);
             parseAndDispatch(token, store);
         }
     }
@@ -110,23 +117,22 @@ function parseAndDispatch(token: string, store: Store) {
 }
 
 export function userAfterInit(store: Store) {
-    const token =  loadTokenFromLocalStorage();
-    const createToast = useCreateToastAction(store);
-    if ( token ) {
+    const token = loadTokenFromLocalStorage();
+    if (token) {
         const payload = jwtDecode(token) as UserType & JwtPayload;
-        store.dispatch(userStore.actions.login({...payload, token}));
-        createToast({
+        store.dispatch(userStore.actions.login({ ...payload, token }));
+        createToastWithStore(store, {
             title: 'Ciao',
             message: `Benvenuto ${payload.username}`
         }, 5e3);
     }
     else {
-        createToast({
+        createToastWithStore(store, {
             title: 'Ciao',
             message: `Benvenuto, stai navigando come anonimo!`
         }, 5e3);
     }
 }
 
-export const selectToken = (state: any)  => state.user.user?.token;
-export const selectUser = (state: any)  => state.user?.user as UserType & { token: string } | undefined;
+export const selectToken = (state: any) => state.user.user?.token;
+export const selectUser = (state: any) => state.user?.user as UserType & { token: string } | undefined;

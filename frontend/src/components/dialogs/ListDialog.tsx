@@ -68,7 +68,7 @@ export default function ListDialog({ anime, tracking }: { anime: Anime, tracking
                                 <option disabled value="">Select Status</option>
                                 <option value="Watching" >Watching</option>
                                 <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
+                                <option onClick={() => setProgress(anime.episodes ?? 1)} value="Completed">Completed</option>
                                 <option value="Dumped">Dumped</option>
                                 <option value="Paused">Paused</option>
                             </select>
@@ -77,7 +77,8 @@ export default function ListDialog({ anime, tracking }: { anime: Anime, tracking
                             <div className="label">
                                 <span className="label-text">{`Progress 0 - ${anime.episodes}`} </span>
                             </div>
-                            <input 
+                            <input
+                                value={progress}
                                 onChange={(e) => setProgress(Number(e.target.value))} 
                                 type="number" 
                                 placeholder={`Progress 0 - ${anime.episodes}`} 

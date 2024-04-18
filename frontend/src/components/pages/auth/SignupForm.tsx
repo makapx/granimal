@@ -64,7 +64,7 @@ const SignupForm = () => {
 
     createUser({
       username, password
-    }).then( _ => {
+    }).then( () => {
       createToast({title: 'Utente registrato', message: `Benvenuto utente ${username}!`}, 10e3)
       navigate('/');
     })

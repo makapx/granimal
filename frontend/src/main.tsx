@@ -12,6 +12,7 @@ import Signup from "./pages/Signup.tsx";
 import AnimePage from "./pages/AnimePage.tsx";
 import ToastViewport from "./components/layout/ToastViewport.tsx";
 import Search from "./pages/Search.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <h1>Profile</h1>,
+    element: <Profile/>,
   },
   {
     path: "/settings",
